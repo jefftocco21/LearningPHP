@@ -1,4 +1,5 @@
 <?php
+ini_set("SMTP", "m04.internetmailserver.net");
 $message = '';
 foreach( $_POST as $name => $value ) {
     if ( 'submit' != $name ) {
@@ -20,3 +21,4 @@ foreach( $_POST as $name => $value ) {
  if ( mail( $to, $subject, $message, $headers ) ) {
      echo "<h3>Your message has been sent.</h3>";
  }
+ ?>
