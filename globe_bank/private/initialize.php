@@ -1,5 +1,6 @@
 <?php
-  ob_start(); //output buffering is turned on
+  ob_start(); // output buffering is turned on
+
   // Assign file paths to PHP constants
   // __FILE__ returns the current path to this file
   // dirname() returns the path to the parent directory
@@ -12,7 +13,7 @@
   // * Do not need to include the domain
   // * Use same document root as webserver
   // * Can set a hardcoded value:
-  // define("WWW_ROOT", 'C:\wamp64\apps\myfiles/globe_bank/public');
+  // define("WWW_ROOT", '/~kevinskoglund/globe_bank/public');
   // define("WWW_ROOT", '');
   // * Can dynamically find everything in URL up to "/public"
   $public_end = strpos($_SERVER['SCRIPT_NAME'], '/public') + 7;
