@@ -8,6 +8,7 @@ mysqli_free_result($subject_set);
 
 $subject = [];
 $subject["position"] = $subject_count;
+
 ?>
 
 <?php $page_title = 'Create Subject'; ?>
@@ -30,14 +31,14 @@ $subject["position"] = $subject_count;
         <dd>
           <select name="position">
           <?php
-              for($i=1; $i<= $subject_count; $i++){
-                echo "<option value=\"{$i}\"";
-                if($subject["position"] == $i){
-                  echo " selected";
-                }
-                echo ">{$i}</option>";
+            for($i=1; $i <= $subject_count; $i++) {
+              echo "<option value=\"{$i}\"";
+              if($subject["position"] == $i) {
+                echo " selected";
               }
-            ?>
+              echo ">{$i}</option>";
+            }
+          ?>
           </select>
         </dd>
       </dl>

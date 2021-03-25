@@ -7,31 +7,25 @@ if(!isset($_GET['id'])) {
 }
 $id = $_GET['id'];
 
-$subject = find_subject_by_id($id); //returns associative array
-
-
 if(is_post_request()) {
 
   // Handle form values sent by new.php
 
   $subject = [];
-  $subject['id'] = $id; 
+  $subject['id'] = $id;
   $subject['menu_name'] = $_POST['menu_name'] ?? '';
   $subject['position'] = $_POST['position'] ?? '';
   $subject['visible'] = $_POST['visible'] ?? '';
 
   $result = update_subject($subject);
-  redirect_to(url_for('staff/subjects/show.php?id=' . $id));
+  redirect_to(url_for('/staff/subjects/show.php?id=' . $id));
 
-  // echo "Form parameters<br />";
-  // echo "Menu name: " . $menu_name . "<br />";
-  // echo "Position: " . $position . "<br />";
-  // echo "Visible: " . $visible . "<br />";
 } else {
-  
+
   $subject = find_subject_by_id($id);
-  $subject_set = find_all_subjects(); //return all of the subjects
-  $subject_count = mysqli_num_rows($subject_set); //after returning all subjects, count number of entries
+
+  $subject_set = find_all_subjects();
+  $subject_count = mysqli_num_rows($subject_set);
   mysqli_free_result($subject_set);
 
 }
@@ -57,15 +51,15 @@ if(is_post_request()) {
         <dt>Position</dt>
         <dd>
           <select name="position">
-            <?php
-              for($i=1; $i<= $subject_count; $i++){
-                echo "<option value=\"{$i}\"";
-                if($subject["position"] == $i){
-                  echo " selected";
-                }
-                echo ">{$i}</option>";
+          <?php
+            for($i=1; $i <= $subject_count; $i++) {
+              echo "<option value=\"{$i}\"";
+              if($subject["position"] == $i) {
+                echo " selected";
               }
-            ?>
+              echo ">{$i}</option>";
+            }
+          ?>
           </select>
         </dd>
       </dl>

@@ -8,10 +8,12 @@ if(!isset($_GET['id'])) {
 $id = $_GET['id'];
 
 if(is_post_request()) {
-    delete_subject($id);
-    redirect_to(url_for('/staff/subjects/index.php'));
-}else{
-    $subject = find_subject_by_id($id);
+
+  $result = delete_subject($id);
+  redirect_to(url_for('/staff/subjects/index.php'));
+
+} else {
+  $subject = find_subject_by_id($id);
 }
 
 ?>
