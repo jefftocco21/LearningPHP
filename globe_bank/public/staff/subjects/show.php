@@ -17,7 +17,7 @@ $subject = find_subject_by_id($id);
 
   <div class="subject show">
 
-  <h1>Subject: <?php echo h($subject['menu_name']); ?></h1>
+    <h1>Subject: <?php echo h($subject['menu_name']); ?></h1>
 
     <div class="attributes">
       <dl>
@@ -33,7 +33,6 @@ $subject = find_subject_by_id($id);
         <dd><?php echo $subject['visible'] == '1' ? 'true' : 'false'; ?></dd>
       </dl>
     </div>
-
 
   </div>
 
