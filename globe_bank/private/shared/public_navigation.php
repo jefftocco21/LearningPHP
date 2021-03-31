@@ -10,7 +10,7 @@
         <ul class="pages">
           <?php while($nav_page = mysqli_fetch_assoc($nav_pages)) { //result set called $nav_subjects specifcially for navigation purposes?> 
            <li>
-              <a href="<?php echo url_for('index.php'); ?>">
+              <a href="<?php echo url_for('index.php?=' . h(u($nav_page['id']))); ?>">
                 <?php echo h($nav_page['menu_name']); ?>
               </a>
             </li>
