@@ -1,8 +1,13 @@
+<?php
+  //default values to prevent errors
+  $page_id = $page_id ?? '';
+  $subject_id = $subject_id ?? '';
+?>
 <navigation>
   <?php $nav_subjects = find_all_subjects(); //query function to find all subjects ?>
   <ul class="subjects">
     <?php while($nav_subject = mysqli_fetch_assoc($nav_subjects)) { //result set called $nav_subjects specifically for navigation purposes?>
-      <li>
+      <li class="<?php if($nav_subject['id']==$subject_id) {echo "selected";} ?>">
         <a href="<?php echo url_for('index.php'); ?>">
           <?php echo h($nav_subject['menu_name']); ?>
         </a>
