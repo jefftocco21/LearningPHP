@@ -2,7 +2,7 @@
 
   // Subjects
 
-  function find_all_subjects($options=[]) { //create associative array to store options like visible or order
+  function find_all_subjects($options=[]) {  //create associative array to store options like visible or order
     global $db;
 
     $visible = $options['visible'] ?? false; //is there a value for visible? if not, ?? false means defualt to false
