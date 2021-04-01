@@ -9,13 +9,14 @@ if(isset($_GET['id'])) {
   }
   $subject_id = $page['subject_id'];
   $subject = find_subject_by_id($subject_id, ['visible' => true]);
-  if($subject){
+  if(!$subject) {
     redirect_to(url_for('/index.php'));
   }
+
 } elseif(isset($_GET['subject_id'])) {
   $subject_id = $_GET['subject_id'];
   $subject = find_subject_by_id($subject_id, ['visible' => true]);
-  if($subject){
+  if(!$subject) {
     redirect_to(url_for('/index.php'));
   }
   $page_set = find_pages_by_subject_id($subject_id, ['visible' => true]);
@@ -23,7 +24,6 @@ if(isset($_GET['id'])) {
   mysqli_free_result($page_set);
   if(!$page) {
     redirect_to(url_for('/index.php'));
-    echo "YO";
   }
   $page_id = $page['id'];
 } else {
