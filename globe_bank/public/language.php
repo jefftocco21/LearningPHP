@@ -6,7 +6,7 @@ if(is_post_request()) {
   // Form was submitted
   $language = $_POST['language'] ?? 'Any';
   $expire = time() + 60*60*24*365;
-  setcookie('language', $language, $expire);
+  setcookie('language', $language, $expire); //name of the cookie, the $language variable contains the selected language, the $expire variable contains the expiration date
 
 } else {
   // Read the stored value (if any)
@@ -32,7 +32,7 @@ if(is_post_request()) {
 
         <select name="language">
           <?php
-            $language_choices = ['Any', 'English', 'Spanish', 'French', 'German'];
+            $language_choices = ['Any', 'English', 'Spanish', 'Italian', 'Portuguese'];
             foreach($language_choices as $language_choice) {
               echo "<option value=\"{$language_choice}\"";
               if($language == $language_choice) {
