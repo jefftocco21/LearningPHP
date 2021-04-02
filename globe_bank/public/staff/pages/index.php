@@ -7,5 +7,3 @@
   redirect_to(url_for('/staff/index.php'));
 
 ?>
-
-

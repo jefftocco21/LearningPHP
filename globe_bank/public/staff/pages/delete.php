@@ -9,7 +9,7 @@ if(!isset($_GET['id'])) {
 }
 $id = $_GET['id'];
 
-$page = find_page_by_id($id); //finds the page just so it can get deleted right afterward
+$page = find_page_by_id($id); //finds the page just sp it can get deleted right afterward
 
 if(is_post_request()) {
 
@@ -26,7 +26,7 @@ if(is_post_request()) {
 
 <div id="content">
 
-<a class="back-link" href="<?php echo url_for('/staff/subjects/show.php?=' . (h(u($page['subject_id'])))); ?>">&laquo; Back to Subject Page</a>
+  <a class="back-link" href="<?php echo url_for('/staff/subjects/show.php?id=' . h(u($page['subject_id']))); ?>">&laquo; Back to Subject Page</a>
 
   <div class="page delete">
     <h1>Delete Page</h1>

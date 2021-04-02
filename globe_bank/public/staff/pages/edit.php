@@ -44,7 +44,7 @@ $page_count = count_pages_by_subject_id($page['subject_id']);
 
 <div id="content">
 
-<a class="back-link" href="<?php echo url_for('/staff/subjects/show.php?=' . (h(u($page['subject_id'])))); ?>">&laquo; Back to Subject Page</a>
+  <a class="back-link" href="<?php echo url_for('/staff/subjects/show.php?id=' . h(u($page['subject_id']))); ?>">&laquo; Back to Subject Page</a>
 
   <div class="page edit">
     <h1>Edit Page</h1>

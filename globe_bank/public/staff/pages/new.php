@@ -33,10 +33,8 @@ if(is_post_request()) {
 
 }
 
+$page_count = count_pages_by_subject_id($page['subject_id']) + 1;
 
-
-
-$page_count = count_pages_by_subject_id($page['subject_id'] + 1);
 ?>
 
 <?php $page_title = 'Create Page'; ?>
@@ -44,7 +42,7 @@ $page_count = count_pages_by_subject_id($page['subject_id'] + 1);
 
 <div id="content">
 
-  <a class="back-link" href="<?php echo url_for('/staff/subjects/show.php?id=' . (h(u($page['subject_id'])))); ?>">&laquo; Back to Subject Page</a>
+  <a class="back-link" href="<?php echo url_for('/staff/subjects/show.php?id=' . h(u($page['subject_id']))); ?>">&laquo; Back to Subject Page</a>
 
   <div class="page new">
     <h1>Create Page</h1>

@@ -111,7 +111,7 @@
 
     return $page_count === 0;
   }
-  
+
   // has_unique_username('johnqpublic')
   // * Validates uniqueness of admins.username
   // * For new records, provide only the username.
@@ -130,4 +130,5 @@
 
     return $admin_count === 0;
   }
+
 ?>

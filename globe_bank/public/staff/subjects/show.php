@@ -9,7 +9,6 @@ $id = $_GET['id'] ?? '1'; // PHP > 7.0
 $subject = find_subject_by_id($id);
 $page_set = find_pages_by_subject_id($id);
 
-
 ?>
 
 <?php $page_title = 'Show Subject'; ?>
@@ -38,7 +37,7 @@ $page_set = find_pages_by_subject_id($id);
       </dl>
     </div>
 
-  </hr>
+    <hr />
 
     <div class="pages listing">
       <h2>Pages</h2>
@@ -75,7 +74,9 @@ $page_set = find_pages_by_subject_id($id);
       <?php mysqli_free_result($page_set); ?>
 
     </div>
-  
+
+
+
   </div>
 
 </div>

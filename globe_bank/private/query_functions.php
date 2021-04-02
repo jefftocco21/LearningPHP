@@ -1,13 +1,11 @@
 <?php
 
-
-
   // Subjects
 
-  function find_all_subjects($options=[]) { //create associative array to store options like visible or order
+  function find_all_subjects($options=[]) {//create associative array to store options like visible or order
     global $db;
 
-    $visible = $options['visible'] ?? false; //is there a value for visible? if not, ?? false means defualt to false
+    $visible = $options['visible'] ?? false; //is there a value for visible? if not, ?? false means default to false
 
     $sql = "SELECT * FROM subjects ";
     if($visible) {
@@ -384,7 +382,7 @@
     $sql .= "ORDER BY position ASC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
-    $row = mysqli_fetch_row($result); //returns an array with one one thing, the count of id
+    $row = mysqli_fetch_row($result); //returns array with one thing -> count of id
     mysqli_free_result($result);
     $count = $row[0]; //only one item being returned, count of id
     return $count;
@@ -536,7 +534,7 @@
       return $errors;
     }
 
-    $hashed_password = password_hash($admin['password'], PASSWORD_DEFAUT); //default encryption method
+    $hashed_password = password_hash($admin['password'], PASSWORD_DEFAULT); //default encryption method
 
     $sql = "INSERT INTO admins ";
     $sql .= "(first_name, last_name, email, username, hashed_password) ";
