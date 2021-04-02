@@ -7,7 +7,6 @@
 
     $visible = $options['visible'] ?? false; //is there a value for visible? if not, ?? false means defualt to false
 
-
     $sql = "SELECT * FROM subjects ";
     if($visible) {
       $sql .= "WHERE visible = true ";
@@ -380,7 +379,7 @@
       $errors[] = "Username not allowed. Try another.";
     }
 
-    if($password_required){ //if password is required, perform validation on it
+    if($password_required) { //if password is required, perform validation on it
       if(is_blank($admin['password'])) {
         $errors[] = "Password cannot be blank.";
       } elseif (!has_length($admin['password'], array('min' => 12))) {
@@ -394,14 +393,14 @@
       } elseif (!preg_match('/[^A-Za-z0-9\s]/', $admin['password'])) {
         $errors[] = "Password must contain at least 1 symbol";
       }
-    }
 
-    if(is_blank($admin['confirm_password'])) {
-      $errors[] = "Confirm password cannot be blank.";
-    } elseif ($admin['password'] !== $admin['confirm_password']) {
-      $errors[] = "Password and confirm password must match.";
+      if(is_blank($admin['confirm_password'])) {
+        $errors[] = "Confirm password cannot be blank.";
+      } elseif ($admin['password'] !== $admin['confirm_password']) {
+        $errors[] = "Password and confirm password must match.";
+      }
     }
-
+    
     return $errors;
   }
 
@@ -413,7 +412,7 @@
       return $errors;
     }
 
-    $hashed_password = password_hash($admin['password'], PASSWORD_DEFAULT);
+    $hashed_password = password_hash($admin['password'], PASSWORD_DEFAULT); //default encrpytion method
 
     $sql = "INSERT INTO admins ";
     $sql .= "(first_name, last_name, email, username, hashed_password) ";
@@ -440,21 +439,21 @@
   function update_admin($admin) {
     global $db;
 
-    $password_sent - !is_blank($admin['password']); //if the password is not blank, it was already set and the password will be required
+    $password_sent = !is_blank($admin['password']); //if the password is not blank, it was already set and the password will be required
 
     $errors = validate_admin($admin, ['password_required' => $password_sent]); //option to see if password_sent is true or false for validation
     if (!empty($errors)) {
       return $errors;
     }
 
-    $hashed_password = password_hash($admin['password'], PASSWORD_DEFAULT);
+    $hashed_password = password_hash($admin['password'], PASSWORD_BCRYPT);
 
     $sql = "UPDATE admins SET ";
     $sql .= "first_name='" . db_escape($db, $admin['first_name']) . "', ";
     $sql .= "last_name='" . db_escape($db, $admin['last_name']) . "', ";
     $sql .= "email='" . db_escape($db, $admin['email']) . "', ";
-    if($password_sent){
-      $sql .= "hashed_password='" . db_escape($db, $hashed_password) . "',"; //requiring the password if it has already been sent
+    if($password_sent) {
+      $sql .= "hashed_password='" . db_escape($db, $hashed_password) . "', "; //requiring the password if it has already been sent
     }
     $sql .= "username='" . db_escape($db, $admin['username']) . "' ";
     $sql .= "WHERE id='" . db_escape($db, $admin['id']) . "' ";
@@ -490,4 +489,5 @@
       exit;
     }
   }
+
 ?>
