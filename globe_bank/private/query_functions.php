@@ -441,7 +441,7 @@
       return $errors;
     }
 
-    $hashed_password = password_hash($admin['password'], PASSWORD_DEFAULT);
+    //$hashed_password = password_hash($admin['password'], PASSWORD_DEFAULT);
 
     $sql = "UPDATE admins SET ";
     $sql .= "first_name='" . db_escape($db, $admin['first_name']) . "', ";
