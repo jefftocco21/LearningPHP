@@ -348,7 +348,9 @@
     return $admin; // returns an assoc. array
   }
 
-  function validate_admin($admin) {
+  function validate_admin($admin, $options=[]) {
+
+    $password_required = $options['password_required'] ?? true; //if passed in false, password is not required, otherwise default to true and password will be required
 
     if(is_blank($admin['first_name'])) {
       $errors[] = "First name cannot be blank.";
@@ -378,18 +380,20 @@
       $errors[] = "Username not allowed. Try another.";
     }
 
-    if(is_blank($admin['password'])) {
-      $errors[] = "Password cannot be blank.";
-    } elseif (!has_length($admin['password'], array('min' => 12))) {
-      $errors[] = "Password must contain 12 or more characters";
-    } elseif (!preg_match('/[A-Z]/', $admin['password'])) {
-      $errors[] = "Password must contain at least 1 uppercase letter";
-    } elseif (!preg_match('/[a-z]/', $admin['password'])) {
-      $errors[] = "Password must contain at least 1 lowercase letter";
-    } elseif (!preg_match('/[0-9]/', $admin['password'])) {
-      $errors[] = "Password must contain at least 1 number";
-    } elseif (!preg_match('/[^A-Za-z0-9\s]/', $admin['password'])) {
-      $errors[] = "Password must contain at least 1 symbol";
+    if($password_required){ //if password is required, perform validation on it
+      if(is_blank($admin['password'])) {
+        $errors[] = "Password cannot be blank.";
+      } elseif (!has_length($admin['password'], array('min' => 12))) {
+        $errors[] = "Password must contain 12 or more characters";
+      } elseif (!preg_match('/[A-Z]/', $admin['password'])) {
+        $errors[] = "Password must contain at least 1 uppercase letter";
+      } elseif (!preg_match('/[a-z]/', $admin['password'])) {
+        $errors[] = "Password must contain at least 1 lowercase letter";
+      } elseif (!preg_match('/[0-9]/', $admin['password'])) {
+        $errors[] = "Password must contain at least 1 number";
+      } elseif (!preg_match('/[^A-Za-z0-9\s]/', $admin['password'])) {
+        $errors[] = "Password must contain at least 1 symbol";
+      }
     }
 
     if(is_blank($admin['confirm_password'])) {
@@ -436,18 +440,22 @@
   function update_admin($admin) {
     global $db;
 
-    $errors = validate_admin($admin);
+    $password_sent - !is_blank($admin['password']); //if the password is not blank, it was already set and the password will be required
+
+    $errors = validate_admin($admin, ['password_required' => $password_sent]); //option to see if password_sent is true or false for validation
     if (!empty($errors)) {
       return $errors;
     }
 
-    //$hashed_password = password_hash($admin['password'], PASSWORD_DEFAULT);
+    $hashed_password = password_hash($admin['password'], PASSWORD_DEFAULT);
 
     $sql = "UPDATE admins SET ";
     $sql .= "first_name='" . db_escape($db, $admin['first_name']) . "', ";
     $sql .= "last_name='" . db_escape($db, $admin['last_name']) . "', ";
     $sql .= "email='" . db_escape($db, $admin['email']) . "', ";
-    $sql .= "hashed_password='" . db_escape($db, $hashed_password) . "',";
+    if($password_sent){
+      $sql .= "hashed_password='" . db_escape($db, $hashed_password) . "',"; //requiring the password if it has already been sent
+    }
     $sql .= "username='" . db_escape($db, $admin['username']) . "' ";
     $sql .= "WHERE id='" . db_escape($db, $admin['id']) . "' ";
     $sql .= "LIMIT 1";
